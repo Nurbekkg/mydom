@@ -1,0 +1,12 @@
+.introduction-block .my-house {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #13BF49;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.introduction-block .link-buttons a:first-child {
+    margin-right: 20px;
+}
