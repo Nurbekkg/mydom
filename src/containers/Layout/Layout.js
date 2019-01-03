@@ -1,12 +1,13 @@
-import React, {Fragment} from 'react';
-import {connect} from "react-redux";
+import React from 'react';
+import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-// import {NotificationContainer} from 'react-notifications';
+import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import 'react-notifications/lib/notifications.css';
 
-import Toolbar from "../../components/UI/Toolbar/Toolbar";
-import {logoutUser} from "../../store/actions/users";
+import Sidebar from '../../components/Sidebar/Sidebar';
+import Header from "../../components/UI/Toolbar/Header";
+import { logoutUser } from "../../store/actions/users";
 
 
 const theme = createMuiTheme({
@@ -31,6 +32,20 @@ const theme = createMuiTheme({
             color: '#2B2A29',
             lineHeight: '52px'
         },
+        h3: {
+            fontFamily: '"Rubik", "Helvetica", "Arial", sans-serif',
+            fontSize: '28px',
+            fontWeight: '500',
+            color: '#2B2A29',
+            lineHeight: '28px'
+        },
+        h4: {
+            fontFamily: '"Rubik", "Helvetica", "Arial", sans-serif',
+            fontSize: '24px',
+            fontWeight: '500',
+            color: '#2B2A29',
+            lineHeight: '28px'
+        },
         body1: {
             fontFamily: '"Rubik", "Helvetica", "Arial", sans-serif',
             fontSize: '18px',
@@ -46,20 +61,41 @@ const theme = createMuiTheme({
             color: '#4F4F4F'
         }
     },
+    spacing: {
+        unit: 10
+    }
+});
+
+const styles = theme => ({
+    root: {
+        display: 'flex',
+    },
+    toolbar: {
+        height: '90px'
+    },
+    content: {
+        flexGrow: 1
+    },
 });
 
 
 const Layout = props => {
+    const { classes } = props;
+
     return (
-        <Fragment>
-            {/*<NotificationContainer/>*/}
-            <Toolbar user={props.user} logout={props.logoutUser}/>
-            <main>
+        <div className={classes.root}>
+            <Header/>
+            <MuiThemeProvider theme={theme}>
+                <Sidebar/>
+            </MuiThemeProvider>
+            <main className={classes.content}>
+                <div className={classes.toolbar}/>
+
                 <MuiThemeProvider theme={theme}>
                     {props.children}
                 </MuiThemeProvider>
             </main>
-        </Fragment>
+        </div>
     )
 };
 
@@ -68,7 +104,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-   logoutUser: () => dispatch(logoutUser())
+    logoutUser: () => dispatch(logoutUser())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+Layout.propTypes = {
+    classes: PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Layout));

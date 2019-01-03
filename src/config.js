@@ -1,3 +1,3 @@
 export default {
-    apiUrl: 'https://test.voxball.io/api'
+    apiUrl: 'https://mydom.kg/api'
 }
