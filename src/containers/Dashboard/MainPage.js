@@ -17,6 +17,10 @@ import advantage3 from '../../assets/images/advantage3.svg';
 import appBg from '../../assets/images/app-bg.svg';
 import appPhones from '../../assets/images/app-phones.svg';
 import serviceBg from '../../assets/images/service-bg.svg';
+import service1 from '../../assets/images/service1.svg';
+import service2 from '../../assets/images/service2.svg';
+import service3 from '../../assets/images/service3.svg';
+import partnerImage from '../../assets/images/partner-image.svg';
 
 const styles = {
     root: {
@@ -105,7 +109,59 @@ const styles = {
         padding: '40px 0 0 100px'
     },
     serviceContainer: {
-        background: `url(${serviceBg}) 0 0 no-repeat`,
+        background: `url(${serviceBg}) right 0 no-repeat`
+    },
+    serviceCard: {
+        position: 'relative',
+        height: '100%',
+        background: '#FFFFFF',
+        boxShadow: '0px 6px 16px rgba(145, 145, 145, 0.16)',
+        borderRadius: '2px',
+        padding: '20px 45px',
+        overflow: 'hidden'
+    },
+    matchHeight: {
+        flex: '1'
+    },
+    serviceImg: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '110px',
+        paddingBottom: '24px'
+    },
+    serviceTitle: {
+        minHeight: '66px',
+        paddingBottom: '12px'
+    },
+    tape: {
+        fontFamily: '"Rubik", sans-serif',
+        fontSize: '18px',
+        color: '#fff',
+        textTransform: 'uppercase',
+        backgroundColor: '#13BF49',
+        width: '130px',
+        height: '35px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        transform: 'rotate(-45deg)',
+        position: 'absolute',
+        right: '-32px',
+        bottom: '15px'
+    },
+    partnersImgBlock: {
+        width: '190px',
+        height: '65px',
+        padding: '20px 25px',
+        background: '#FFFFFF',
+        boxShadow: '0px 6px 8px rgba(145, 145, 145, 0.16)',
+        borderRadius: '3px'
+    },
+    partnersImg: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain'
     }
 };
 
@@ -277,24 +333,134 @@ class MainPage extends Component {
                     </div>
                 </div>
 
-                <div>
-                    
+                <div className={classes.platformsContainer}>
+                    <div>
+                        <Typography variant="h2" className={classes.alignCenter}>
+                            <span className={classes.titleLine}>Услуги и сервисы</span>
+                        </Typography>
+
+                        <Typography variant="body2" className={classes.platformText}
+                                    style={{ color: '#4F4F4F', fontWeight: 400, maxWidth: '590px' }}>
+                            С помощью компании Мой дом вы можете вызвать нужного специалиста, продать или найти
+                            недвижимость, а так же найти нажежную управляющую компанию для вашего ТСЖ
+                        </Typography>
+                    </div>
 
                     <Grid spacing={40} container
                           direction="row"
-                          justify="space-between">
+                          justify="space-between"
+                          wrap="wrap"
+                          className={classes.serviceContainer}>
 
-                        <Grid item lg={3}>
+                        <Grid item lg={3} className={classes.matchHeight}>
+                            <div className={classes.serviceCard}>
+                                <div className={classes.serviceImg}>
+                                    <img src={service1} alt="service"/>
+                                </div>
+                                <Typography variant="h4" className={classes.serviceTitle}>
+                                    Услуги исполнителей
+                                </Typography>
+                                <Typography variant="body2" style={{ paddingBottom: '15px' }}>
+                                    Создавайте задания
+                                    и приглашайте проверенных специалистов в любой сфере!
+                                </Typography>
+                                <Button variant="contained" color="primary" href="#" className={classes.button}>
+                                    Подробнее
+                                </Button>
+                            </div>
                         </Grid>
 
-                        <Grid item lg={3}>
+                        <Grid item lg={3} className={classes.matchHeight}>
+                            <div className={classes.serviceCard}>
+                                <div className={classes.serviceImg}>
+                                    <img src={service2} alt="service"/>
+                                </div>
+                                <Typography variant="h4" className={classes.serviceTitle}>
+                                    Недвижимость
+                                </Typography>
+                                <Typography variant="body2" style={{ paddingBottom: '15px' }}>
+                                    Поиск, подбор, аренда
+                                    и продажа недвижимости без посредников или только от проверенных агенств!
+                                </Typography>
+
+                                <span className={classes.tape}>Скоро</span>
+                            </div>
                         </Grid>
 
-                        <Grid item lg={3}>
+                        <Grid item lg={3} className={classes.matchHeight}>
+                            <div className={classes.serviceCard}>
+                                <div className={classes.serviceImg}>
+                                    <img src={service3} alt="service"/>
+                                </div>
+                                <Typography variant="h4" className={classes.serviceTitle}>
+                                    Управляющие компании
+                                </Typography>
+                                <Typography variant="body2" style={{ paddingBottom: '15px' }}>
+                                    Вы можете доверить управление своим ТСЖ проверенным и надежным управляющим
+                                    компаниям.
+                                </Typography>
+
+                                <span className={classes.tape}>Скоро</span>
+                            </div>
                         </Grid>
                     </Grid>
                 </div>
+
+                <div className={classes.platformsContainer}>
+                    <div>
+                        <Typography variant="h2" className={classes.alignCenter}>
+                            <span className={classes.titleLine}>Партнеры</span>
+                        </Typography>
+
+                        <Typography variant="body2" className={classes.platformText}
+                                    style={{ color: '#4F4F4F', fontWeight: 400, maxWidth: '590px' }}>
+                            Тесная интеграция с самыми популярными и успешными партнерами позволяет вам пользоваться
+                            безналичной оплатой, вызывать такси,
+                            и многое другое.
+                        </Typography>
+                    </div>
+
+                    <Grid spacing={40} container
+                          direction="row"
+                          justify="space-between"
+                          wrap="wrap">
+
+                        <Grid item lg={3}>
+                            <div className={classes.partnersImgBlock}>
+                                <img src={partnerImage} className={classes.partnersImg} alt="partner"/>
+                            </div>
+                        </Grid>
+
+                        <Grid item lg={3}>
+                            <div className={classes.partnersImgBlock}>
+                                <img src={partnerImage} className={classes.partnersImg} alt="partner"/>
+                            </div>
+                        </Grid>
+
+                        <Grid item lg={3}>
+                            <div className={classes.partnersImgBlock}>
+                                <img src={partnerImage} className={classes.partnersImg} alt="partner"/>
+                            </div>
+                        </Grid>
+
+                        <Grid item lg={3}>
+                            <div className={classes.partnersImgBlock}>
+                                <img src={partnerImage} className={classes.partnersImg} alt="partner"/>
+                            </div>
+                        </Grid>
+                    </Grid>
+                </div>
+
+                <div className={classes.platformsContainer}>
+                    <Typography variant="h2" className={classes.alignCenter}>
+                        <span className={classes.titleLine}>Контакты</span>
+                    </Typography>
+
+                    {/*<div className={}></div>*/}
+                </div>
             </div>
+
+
         )
     }
 }
