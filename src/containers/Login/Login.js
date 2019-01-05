@@ -93,7 +93,7 @@ class Login extends Component {
                     </Typography>
 
                     <div style={{width: '100%'}}>
-                        <Button variant="outlined" color="primary" className={classes.loginBtn}>
+                        <Button variant="outlined" color="primary" type="submit" className={classes.loginBtn}>
                             Продолжить
                         </Button>
                     </div>

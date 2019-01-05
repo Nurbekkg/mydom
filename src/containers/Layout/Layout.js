@@ -71,7 +71,7 @@ const styles = theme => ({
         display: 'flex',
     },
     toolbar: {
-        height: '90px'
+        height: '120px'
     },
     content: {
         flexGrow: 1
@@ -84,10 +84,10 @@ const Layout = props => {
 
     return (
         <div className={classes.root}>
-            <Header/>
-            <MuiThemeProvider theme={theme}>
-                <Sidebar/>
-            </MuiThemeProvider>
+            {/*<Header/>*/}
+            {/*<MuiThemeProvider theme={theme}>*/}
+                {/*<Sidebar/>*/}
+            {/*</MuiThemeProvider>*/}
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
 

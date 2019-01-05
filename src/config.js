@@ -1,3 +1,3 @@
 export default {
-    apiUrl: 'https://mydom.kg/api'
+    apiUrl: 'http://test.mydom.kg/api/'
 }
