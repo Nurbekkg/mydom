@@ -14,20 +14,17 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case LOGIN_USER_FAILURE:
+            return {...state, loginError: action.error};
         case LOGIN_USER_SUCCESS:
             return {
                 ...state,
-                token: action.token,
+                user: action.user,
+                token: action.user.api_token,
                 loginError: null
             };
-        case LOGIN_USER_FAILURE:
-            return {...state, loginError: action.error};
         case LOGOUT_USER:
             return {...state, user: null, token: null};
-        case FETCH_USER_SUCCESS:
-            return {...state, user: action.user, loginError: null};
-        case FETCH_USER_FAILURE:
-            return {...state, loginError: action.error};
         default:
             return state;
     }

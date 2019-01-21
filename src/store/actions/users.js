@@ -11,8 +11,8 @@ import {
 
 // ---------------------------------------------------------------------------------------------------------------
 
-const loginUserSuccess = (token) => {
-    return {type: LOGIN_USER_SUCCESS, token};
+const loginUserSuccess = (user) => {
+    return {type: LOGIN_USER_SUCCESS, user};
 };
 
 const loginUserFailure = error => {
@@ -23,8 +23,8 @@ export const loginUser = userData => {
     return dispatch => {
         return axios.post('/users/login/', userData).then(
             response => {
-                console.log(response.data);
-                // dispatch(loginUserSuccess(response.data.token));
+                dispatch(loginUserSuccess(response.data.data));
+                dispatch(push('/personal-account'));
             }
         ).catch(error => {
             const errorObj = error.response ? error.response.data : {error: 'No internet connection'};

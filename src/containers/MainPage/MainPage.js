@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -27,12 +28,24 @@ import service3 from '../../assets/images/service3.svg';
 import partnerImage from '../../assets/images/partner-image.svg';
 import contactsBg from '../../assets/images/contacts-bg.svg';
 import contactsBorder from '../../assets/images/contact-border.svg';
+import footerLogo from '../../assets/images/footer-logo.svg';
+import googlePlay from '../../assets/images/google-play.svg';
+import appStore from '../../assets/images/app-store.svg';
+import videoPreview from '../../assets/images/video-preview.svg';
+import elsom from '../../assets/images/elsom.svg';
+import demir from '../../assets/images/demir.svg';
+import bank from '../../assets/images/bank.svg';
 
 const styles = {
     appBar: {
         height: '120px',
         backgroundColor: '#fff',
         boxShadow: 'none',
+        transition: 'all .3s ease-in'
+    },
+    sticky: {
+        height: '80px',
+        boxShadow: '0 4px 8px rgba(82, 82, 82, 0.2)'
     },
     grow: {
         flexGrow: 1,
@@ -221,39 +234,120 @@ const styles = {
     contactsPadding: {
         background: `url(${contactsBg}) right 22px no-repeat`,
         padding: '60px 0 370px 140px'
+    },
+    footer: {
+        backgroundColor: '#13BF49',
+        padding: '55px 120px 0'
+    },
+    footerParagraph: {
+        fontWeight: 500,
+        color: '#fff',
+        lineHeight: '20px',
+        paddingBottom: '20px'
+    },
+    footerLink: {
+        textDecoration: 'none',
+        color: '#fff'
     }
 };
 
 class MainPage extends Component {
+    state = {
+        avtiveClass: ''
+    };
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+
+        Events.scrollEvent.register('begin', function(to, element) {
+            console.log("begin", arguments);
+        });
+
+        Events.scrollEvent.register('end', function(to, element) {
+            console.log("end", arguments);
+        });
+
+        scrollSpy.update();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+
+        Events.scrollEvent.remove('begin');
+        Events.scrollEvent.remove('end');
+    }
+
+    handleScroll = () => {
+        const scrollY = window.scrollY;
+
+        if (scrollY > 0) {
+            this.setState({
+                activeClass: 'sticky'
+            })
+        } else {
+            this.setState({
+                activeClass: ''
+            })
+        }
+    };
+
+    scrollToTop = () => {
+        scroll.scrollToTop();
+    };
+
+    scrollToBottom = () => {
+        scroll.scrollToBottom();
+    };
+
+    scrollTo = () => {
+        scroll.scrollTo(100);
+    };
+
+    scrollMore = () => {
+        scroll.scrollMore(100);
+    };
+
+    handleSetActive = (to) => {
+        console.log(to);
+    };
+
+
+    navigationHandle = event => {
+        console.log(event.target.href);
+    };
+
 
     render() {
         const { classes } = this.props;
+        console.log(this.state);
 
         return (
             <Fragment>
-                <AppBar position="fixed" className={classes.appBar}>
+                <AppBar position="fixed" className={`${classes.appBar} ${classes[this.state.activeClass]}`}>
                     <Toolbar style={{height: '100%'}}>
                         <div className={classes.grow}>
                             <img src={logo} alt="logotype"/>
                         </div>
 
                         <nav className={classes.nav}>
-                            <Link to="#" className={classes.navLink}>О нас</Link>
-                            <Link to="#" className={classes.navLink}>Возможности</Link>
-                            <Link to="#" className={classes.navLink}>Услуги и сервисы</Link>
-                            <Link to="#" className={classes.navLink}>Контакты</Link>
+                            <Link  className={classes.navLink} to="about"  spy={true}
+                                   smooth={true} offset={-100} duration={500}>О нас</Link>
+                            <Link className={classes.navLink} to="advantages" spy={true}
+                                  smooth={true} offset={-40} duration={500}>Возможности</Link>
+                            <Link className={classes.navLink} to="services" spy={true}
+                                  smooth={true}  offset={-40} duration={500}>Услуги и сервисы</Link>
+                            <Link className={classes.navLink} to="contacts" spy={true}
+                                  smooth={true}  offset={-40} duration={500}>Контакты</Link>
                         </nav>
 
-                        <Button variant="outlined" color="primary"
-                                className={classes.linkBtn} href="/login">
-                            Личный кабинет
-                        </Button>
+                        {/*<Button variant="outlined" color="primary"*/}
+                                {/*className={classes.linkBtn} href="/login">*/}
+                            {/*Личный кабинет*/}
+                        {/*</Button>*/}
                     </Toolbar>
                 </AppBar>
 
                 <div className={classes.root}>
-
-
                     <Grid container className={classes.container1}>
                         <Grid item lg={1}/>
                         <Grid item lg={7}>
@@ -281,7 +375,7 @@ class MainPage extends Component {
                         <Grid item lg={4}/>
                     </Grid>
 
-                    <Grid container spacing={40} className={classes.aboutUs}>
+                    <Grid container spacing={40} className={classes.aboutUs} name="about">
                         <Grid item lg={12}>
                             <Typography variant="h2" className={classes.alignCenter}>
                                 <span className={classes.titleLine}>О нас</span>
@@ -289,7 +383,7 @@ class MainPage extends Component {
                         </Grid>
 
                         <Grid item lg={6}>
-                            <div style={{ height: '410px', backgroundColor: 'green' }}/>
+                            <img src={videoPreview} style={{width: '100%'}} alt="video-preview"/>
                         </Grid>
                         <Grid item lg={6}>
                             <div className={classes.padding}>
@@ -328,7 +422,7 @@ class MainPage extends Component {
                     <Grid container spacing={40}
                           direction="row"
                           alignItems="center"
-                          className={classes.platformsContainer}>
+                          className={classes.platformsContainer} name="advantages">
                         <Grid item lg={12}>
                             <Typography variant="h2" className={classes.alignCenter}>
                                 <span className={classes.titleLine}>Возможности</span>
@@ -415,7 +509,7 @@ class MainPage extends Component {
                         </div>
                     </div>
 
-                    <div className={classes.platformsContainer}>
+                    <div className={classes.platformsContainer} name="services">
                         <div>
                             <Typography variant="h2" className={classes.alignCenter}>
                                 <span className={classes.titleLine}>Услуги и сервисы</span>
@@ -515,19 +609,19 @@ class MainPage extends Component {
 
                             <Grid item lg={3}>
                                 <div className={classes.partnersImgBlock}>
-                                    <img src={partnerImage} className={classes.partnersImg} alt="partner"/>
+                                    <img src={elsom} className={classes.partnersImg} alt="partner"/>
                                 </div>
                             </Grid>
 
                             <Grid item lg={3}>
                                 <div className={classes.partnersImgBlock}>
-                                    <img src={partnerImage} className={classes.partnersImg} alt="partner"/>
+                                    <img src={demir} className={classes.partnersImg} alt="partner"/>
                                 </div>
                             </Grid>
 
                             <Grid item lg={3}>
                                 <div className={classes.partnersImgBlock}>
-                                    <img src={partnerImage} className={classes.partnersImg} alt="partner"/>
+                                    <img src={bank} className={classes.partnersImg} alt="partner"/>
                                 </div>
                             </Grid>
                         </Grid>
@@ -556,6 +650,58 @@ class MainPage extends Component {
                         </div>
                     </div>
                 </div>
+
+                <footer className={classes.footer} name="contacts">
+                    <Grid container spacing={40}>
+                        <Grid item lg={3}>
+                            <Link to="#">
+                                <img src={footerLogo} alt="logotype"/>
+                            </Link>
+                        </Grid>
+                        <Grid item lg={3}>
+                            <Typography variant="body1" className={classes.footerParagraph}>
+                                Скачивайте мобильное приложение:
+                            </Typography>
+
+                            <Link to="#" style={{marginRight: '20px'}}>
+                                <img src={appStore} alt="app-store"/>
+                            </Link>
+                            <Link to="#">
+                                <img src={googlePlay} alt="google-play"/>
+                            </Link>
+                        </Grid>
+                        <Grid item lg={3}>
+                            <Typography variant="body1" className={classes.footerParagraph}>
+                                <Link to="#" className={classes.footerLink}>О нас</Link>
+                            </Typography>
+                            <Typography variant="body1" className={classes.footerParagraph}>
+                                <Link to="#" className={classes.footerLink}>Возможности</Link>
+                            </Typography>
+                            <Typography variant="body1" className={classes.footerParagraph}>
+                                <Link to="#" className={classes.footerLink}>Услуги и сервисы</Link>
+                            </Typography>
+                        </Grid>
+                        <Grid item lg={3}>
+                            <Typography variant="body1" className={classes.footerParagraph}>
+                                <a href="tel:+996775488388" className={classes.footerLink}>+996  (775)  488 388</a>
+                            </Typography>
+                            <Typography variant="body1" className={classes.footerParagraph}>
+                                <a href="tel:+996555488388" className={classes.footerLink}>+996  (555)  488 388</a>
+                            </Typography>
+                            <Typography variant="body1" className={classes.footerParagraph}>
+                                <a href="tel:+996702488388" className={classes.footerLink}>+996  (702)  488 388</a>
+                            </Typography>
+                            <Typography variant="body1" className={classes.footerParagraph}>
+                                support@mydom.kg
+                            </Typography>
+                        </Grid>
+                        <Grid item lg={12}>
+                            <Typography variant="body1" style={{fontSize: '16px', color: '#fff', textAlign: 'center'}}>
+                                mydom 2019
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </footer>
             </Fragment>
         )
     }

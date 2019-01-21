@@ -13,7 +13,7 @@ import {logoutExpiredUser} from "./store/actions/users";
 
 axios.interceptors.request.use(config => {
     try {
-        config.headers['authorization'] = store.getState().users.token;
+        config.headers['Token'] = store.getState().users.token;
     } catch (e) {
         //do nothing
     }

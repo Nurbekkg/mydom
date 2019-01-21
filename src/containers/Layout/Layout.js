@@ -84,10 +84,12 @@ const Layout = props => {
 
     return (
         <div className={classes.root}>
-            {/*<Header/>*/}
-            {/*<MuiThemeProvider theme={theme}>*/}
-                {/*<Sidebar/>*/}
-            {/*</MuiThemeProvider>*/}
+            {props.user && <Header/>}
+            {props.user && (
+                <MuiThemeProvider theme={theme}>
+                    <Sidebar/>
+                </MuiThemeProvider>
+            )}
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
 
